@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Build;
 import android.view.WindowManager;
+import android.view.Window;
+import android.view.View;
 
 import java.lang.ref.WeakReference;
 
@@ -18,6 +20,7 @@ import java.lang.ref.WeakReference;
 public class SplashScreen {
     private static Dialog mSplashDialog;
     private static WeakReference<Activity> mActivity;
+    private static Window mWindow;
 
     /**
      * 打开启动屏
@@ -32,6 +35,10 @@ public class SplashScreen {
                     mSplashDialog = new Dialog(activity, themeResId);
                     mSplashDialog.setContentView(R.layout.launch_screen);
                     mSplashDialog.setCancelable(false);
+                    mWindow = mSplashDialog.getWindow();
+                    mWindow.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
                     if (fullScreen) {
                         setActivityAndroidP(mSplashDialog);
                     }
